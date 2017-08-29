@@ -1,9 +1,11 @@
 #!/bin/bash
 
+: ${VERSION:=latest}
+
 set -eu
 
 VOLUME="/data"
-DOCKER_IMAGE="hashicorp/terraform:0.10.2"
+DOCKER_IMAGE="hashicorp/terraform:${VERSION}"
 
 [[ -z "${AWS_ACCESS_KEY_ID}" ]] && { echo "\$AWS_ACCESS_KEY_ID environment variable is empty" ; return 1; }
 [[ -z "${AWS_SECRET_ACCESS_KEY}" ]] && { echo "\$AWS_SECRET_ACCESS_KEY environment variable is empty" ; return 1; }

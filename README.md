@@ -16,6 +16,24 @@ I have contemplated the idea of managing my computer with [Puppet](https://puppe
 3. Source your profile or open a new shell
 4. Run the tool found in [docker-bin](https://github.com/lone-cyprus/docker-bin) -- profit
 
+For example, if you want to run `terraform` then type something like this:
+
+```bash
+> terraform --version
+Terraform v0.10.2
+
+```
+
+The tools already have a default version assigned, if you want to use a specific version then state the VERSION on the command-line like this:
+
+```bash
+> VERSION=0.10.1 terraform --version
+> Terraform v0.10.1
+
+Your version of Terraform is out of date! The latest version
+is 0.10.2. You can update by downloading from www.terraform.io
+```
+
 ## Remarks
 This is currently a "personal project" that addresses my current need/use case. 
 
