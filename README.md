@@ -35,10 +35,15 @@ Your version of Terraform is out of date! The latest version
 is 0.10.2. You can update by downloading from www.terraform.io
 ```
 
-## Remarks
-This is currently a "fun" project that addresses my current need/use case. I'll be adding new scripts as the need comes up.  If you wish to contribute your own scripts, please submit a pull request.
+## Tips
+* Put the path to your `docker-bin` directory at the end of your `PATH` variable if you prefer a locally installed tool (also on the `PATH`) to be used instead
+* If you want to know which `VERSION`s are available, take a look at the script to see which Docker image is being used, see what `tag` available in Docker Hub, and use that at the command line.  NOTE: some Docker tags may have more information than just the formal version of the tool you want. The tag may also include dependent tool/OS information and it's versions (i.e. `2.4.11-jdk8-alpine`)
+* If you know of a better image to use (i.e. "this one is more official", "this group typically releases images of the newer versions sooner", etc) then please tell us!
 
-I have no grand vision for this -- well, at the very least, I'm trying to keep it as simple as possible.  I have no desire to build yet-another-package-manager or yet-another-tool-specific-version-manager.
+## Remarks
+This is currently a "fun" project that addresses a current need/use case. New scripts will be added as the need comes up.  If you wish to contribute your own scripts, please submit a pull request.
+
+There is currently no grand vision for this -- well, at the very least, we're trying to keep it as simple as possible.  We have no desire to build yet-another-package-manager or yet-another-tool-specific-version-manager.
 
 ## License
 [LICENSE](LICENSE)
