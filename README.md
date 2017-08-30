@@ -7,7 +7,8 @@ Here are some of the reasons why this repository exists and how you may benefit 
 * Like many software professionals, you use a package manager (i.e. [Homebrew](https://brew.sh/)) to install new tools on your OS.  You usually dread the time that you need to do a clean OS install.
 * When helping someone out on a computer that is void of your tools, you usually decide to solve the problem the "hard way" since installing and setting up the tool you need will take too long.
 * You mulled over, many times, using a provisioning tool like [Puppet](https://puppet.com/), [Chef](https://www.chef.io/), or [Ansible](https://www.ansible.com/) to setup your beloved tools, but the effort seems to outweigh the reward.
-* You routinely want to use a different version of a tool at any given time, but not every tool has it's own version manager (i.e. [rvm](https://rvm.io/), [sdkman](http://sdkman.io/install.html))
+* You routinely want to use a different version of a tool at any given time, but not every tool has it's own version manager (i.e. [rvm](https://rvm.io/), [sdkman](http://sdkman.io/install.html)).
+* When it comes to your Continuous Integration (CI) server, you want your teams to manage their own tool installs on a per project basis.
 
 ## Getting Started
 
