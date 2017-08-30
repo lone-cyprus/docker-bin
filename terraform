@@ -2,10 +2,15 @@
 
 : ${VERSION:=latest}
 
-set -eu
-
 VOLUME="/data"
 DOCKER_IMAGE="hashicorp/terraform:${VERSION}"
+
+volume_option="-v "$(pwd):$VOLUME""
+if [[ ! -z "${SHARED_VOLUME}" ]]; then
+  volume_option="--volumes-from ${SHARED_VOLUME}"
+fi
+
+set -eu
 
 [[ -z "${AWS_ACCESS_KEY_ID}" ]] && { echo "\$AWS_ACCESS_KEY_ID environment variable is empty" ; return 1; }
 [[ -z "${AWS_SECRET_ACCESS_KEY}" ]] && { echo "\$AWS_SECRET_ACCESS_KEY environment variable is empty" ; return 1; }
@@ -15,6 +20,6 @@ docker run --rm -t $(tty &>/dev/null && echo "-i") \
            -e "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}" \
            -e "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}" \
            -e "AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}" \
-           -v "$(pwd):$VOLUME" \
+           ${volume_option} \
            -w $VOLUME \
            $DOCKER_IMAGE "$@"
