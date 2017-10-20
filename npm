@@ -3,7 +3,7 @@
 : ${VERSION:=latest}
 
 VOLUME="/usr/src/app"
-DOCKER_IMAGE="gradle:${VERSION}"
+DOCKER_IMAGE="node:${VERSION}"
 
 volume_option="-v "$(pwd):$VOLUME""
 if [[ ! -z "${SHARED_VOLUME}" ]]; then
@@ -15,4 +15,4 @@ set -eu
 docker run --rm -t $(tty &>/dev/null && echo "-i") \
            ${volume_option} \
            -w $VOLUME \
-           $DOCKER_IMAGE gradle "$@"
+           $DOCKER_IMAGE npm "$@"
