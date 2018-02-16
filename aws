@@ -2,8 +2,8 @@
 
 : ${VERSION:=latest}
 
-VOLUME="/project"
-DOCKER_IMAGE="mesosphere/aws-cli:${VERSION}"
+VOLUME="/aws"
+DOCKER_IMAGE="anigeo/awscli:${VERSION}"
 
 volume_option="-v "$(pwd):$VOLUME""
 if [[ ! -z "${SHARED_VOLUME}" ]]; then
