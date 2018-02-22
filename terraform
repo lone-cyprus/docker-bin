@@ -18,12 +18,14 @@ set -eu
 [[ -z "${AWS_SECRET_ACCESS_KEY}" ]] && { echo "\$AWS_SECRET_ACCESS_KEY environment variable is empty" ; return 1; }
 [[ -z "${AWS_DEFAULT_REGION}" ]] && { echo "\$AWS_DEFAULT_REGION environment variable is empty" ; return 1; }
 
-curl -s https://raw.githubusercontent.com/lone-cyprus/docker-bin/master/Dockerfile.terraform |
-   docker build -f - \
-                --build-arg GITHUB_TOKEN=$TF_VAR_github_token \
-                --build-arg VERSION=$VERSION \
-                -t $DOCKER_IMAGE \
-                .
+if [[ "$(docker images -q ${DOCKER_IMAGE} 2> /dev/null)" == "" ]]; then
+  curl -s https://raw.githubusercontent.com/lone-cyprus/docker-bin/master/Dockerfile.terraform \
+    | docker build -f - \
+                   --build-arg GITHUB_TOKEN=$TF_VAR_github_token \
+                   --build-arg VERSION=$VERSION \
+                   -t $DOCKER_IMAGE \
+                   .
+fi
 
 docker run --rm -t $(tty &>/dev/null && echo "-i") \
            -e "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}" \
