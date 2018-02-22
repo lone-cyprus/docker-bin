@@ -1,0 +1,28 @@
+FROM golang:alpine
+MAINTAINER "Lone Cyprus <contact@lone-cyprus.com>"
+
+ARG VERSION
+ARG GITHUB_TOKEN
+
+ENV TERRAFORM_VERSION=$VERSION
+ENV CIRCLECI_PROVIDER_VERSION=0.0.1
+
+RUN apk add --update git bash openssh
+
+ENV TF_DEV=true
+ENV TF_RELEASE=true
+
+WORKDIR $GOPATH/src/github.com/hashicorp/terraform
+RUN git clone https://github.com/hashicorp/terraform.git ./ && \
+    git checkout v${TERRAFORM_VERSION} && \
+    /bin/bash scripts/build.sh
+
+WORKDIR $GOPATH/src/github.com/lone-cyprus/terraform-provider-circleci
+RUN git clone https://$GITHUB_TOKEN@github.com/lone-cyprus/terraform-provider-circleci.git ./ && \
+    git checkout ${CIRCLECI_PROVIDER_VERSION} && \
+    go install && \
+    cp $GOPATH/bin/terraform-provider-circleci $GOPATH/bin/terraform-provider-circleci_v0.0.1_x4
+
+WORKDIR $GOPATH
+
+ENTRYPOINT ["terraform"]
