@@ -7,7 +7,7 @@ ARG GITHUB_TOKEN
 ENV TERRAFORM_VERSION=$VERSION
 ENV CIRCLECI_PROVIDER_VERSION=0.0.1
 
-RUN apk add --update git bash openssh
+RUN apk add --update git bash openssh curl
 
 ENV TF_DEV=true
 ENV TF_RELEASE=true
