@@ -20,7 +20,7 @@ set -eu
 [[ -z "${AWS_DEFAULT_REGION}" ]] && { echo "\$AWS_DEFAULT_REGION environment variable is empty" ; return 1; }
 
 readonly aws_region=us-east-2
-login=$(aws ecr get-login --no-include-email --region ${aws_region})
+login=$(VERSION=latest aws ecr get-login --no-include-email --region ${aws_region})
 ${login/$'\r'/}
 
 docker pull "${AWS_ACCOUNT_ID}.dkr.ecr.${aws_region}.amazonaws.com/${DOCKER_IMAGE}"
