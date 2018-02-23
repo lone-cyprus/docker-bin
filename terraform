@@ -1,6 +1,6 @@
 #!/bin/bash
 
-: ${VERSION:=0.11.3}
+: ${VERSION:=latest}
 : "${GITHUB_TOKEN:?Need to set GITHUB_TOKEN}"
 
 VOLUME="/data"
@@ -19,14 +19,11 @@ set -eu
 [[ -z "${AWS_SECRET_ACCESS_KEY}" ]] && { echo "\$AWS_SECRET_ACCESS_KEY environment variable is empty" ; return 1; }
 [[ -z "${AWS_DEFAULT_REGION}" ]] && { echo "\$AWS_DEFAULT_REGION environment variable is empty" ; return 1; }
 
-if [[ "$(docker images -q ${DOCKER_IMAGE} 2> /dev/null)" == "" ]]; then
-  curl -s https://raw.githubusercontent.com/lone-cyprus/docker-bin/master/Dockerfile.terraform \
-    | docker build -f - \
-                   --build-arg GITHUB_TOKEN=$GITHUB_TOKEN \
-                   --build-arg VERSION=$VERSION \
-                   -t $DOCKER_IMAGE \
-                   .
-fi
+readonly aws_region=us-east-2
+login=$(aws ecr get-login --no-include-email --region ${aws_region})
+${login/$'\r'/}
+
+docker pull "${AWS_ACCOUNT_ID}.dkr.ecr.${aws_region}.amazonaws.com/${DOCKER_IMAGE}"
 
 docker run --rm -t $(tty &>/dev/null && echo "-i") \
            -e "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}" \
