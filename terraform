@@ -31,4 +31,4 @@ docker run --rm -t $(tty &>/dev/null && echo "-i") \
            -e "AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}" \
            ${volume_option} \
            -w $VOLUME \
-           $DOCKER_IMAGE "$@"
+           "${AWS_ACCOUNT_ID}.dkr.ecr.${aws_region}.amazonaws.com/${DOCKER_IMAGE}" "$@"
